@@ -25,7 +25,7 @@ for (i = 0; i < vyskaPole; i++) {
         let newDiv = document.createElement("div");
         newDiv.classList.add("cell");
         newDiv.classList.add("row" + j)
-        newDiv.innerHTML = i + " " + j;
+        //newDiv.innerHTML = i + " " + j; //Popsání jednotlivých buňek čísly
 
         //Vkládáme daší buňky do sloupce 
         newColumn.appendChild(newDiv);
@@ -83,6 +83,7 @@ function victoryCheck() {
         for (j = 0; j < sirkaPole; j++) {
             if (array[i][j] != -1) {
                 let hodnota = array[i][j];
+                //Prochází jednotlivé metody na kontrolu, dokud victory != true
                 if (!victory) victory = rowCheck(hodnota, i, j);
                 if (!victory) victory = columnCheck(hodnota, i, j)
                 if (!victory) victory = diagonalLeft(hodnota, i, j)
