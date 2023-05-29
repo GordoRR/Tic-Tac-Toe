@@ -12,7 +12,20 @@
 <body>
     <div class="board">
     </div>
-
+    <div class="startScreen">
+        <p>Board Width</p>
+        <input type="range" min="3" max="20" value="5" oninput="widthValue.innerText = this.value" class="slider" id="widthSlider">
+        <p id="widthValue">5</p>
+        <p>Board Height</p>
+        <input type="range" min="3" max="20" value="5" oninput="heightValue.innerText = this.value" class="slider" id="heightSlider">
+        <p id="heightValue">5</p>
+        <p>Win</p>
+        <input type="range" min="3" max="20" value="5" oninput="winValue.innerText = this.value" class="slider" id="winSlider">
+        <p id="winValue">5</p>
+    </div>
+    <div id="startBtn" class="startScreen">
+        <a href="#" onclick="startGame()">Start Game</a>
+    </div>
 </body>
 
 </html>

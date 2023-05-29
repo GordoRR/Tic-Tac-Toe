@@ -1,17 +1,18 @@
 const board = document.querySelector(".board");
-const win = 5;
-const vyskaPole = 10;
-const sirkaPole = 10;
+const startBtn = document.querySelector("#startBtn")
+let vyskaPole, sirkaPole;
+let win;
 const players = 2; // Maximálně 3 hráči
 let victory = false;
 let array = [];
 let currentPlayer = 0;
 
 
+
 //Cyklus FOR, který vytvoří pole pro piškvorky
 
 
-
+function createBoard(){
 for (i = 0; i < vyskaPole; i++) {
     //Vytvoříme DIV
     let newColumn = document.createElement("div")
@@ -32,6 +33,7 @@ for (i = 0; i < vyskaPole; i++) {
         array[i][j] = -1;
     }
     console.log()
+}
 }
 
 
@@ -76,20 +78,22 @@ board.addEventListener("click", (event) => {
     }
 }
 )
+
 function victoryCheck() {
-
-
+    let draw = 0;
     for (i = 0; i < vyskaPole; i++) {
         for (j = 0; j < sirkaPole; j++) {
             if (array[i][j] != -1) {
+                draw++;
                 let hodnota = array[i][j];
                 //Prochází jednotlivé metody na kontrolu, dokud victory != true
+                if (draw === (vyskaPole*sirkaPole)) alert("Remíza");
                 if (!victory) victory = rowCheck(hodnota, i, j);
                 if (!victory) victory = columnCheck(hodnota, i, j)
                 if (!victory) victory = diagonalLeft(hodnota, i, j)
                 if (!victory) victory = diagonalRight(hodnota, i, j)
                 if (victory){
-                    victoryAnnoucement();
+                    victoryAnnouncement();
                     return;
                 }
             }
@@ -98,60 +102,58 @@ function victoryCheck() {
 }
 function rowCheck(char, column, row) {
     let charCount = 1;
-    while (charCount != win && column+1 < sirkaPole) {
-        if (array[(column + 1)][row] === char) {
+    while (charCount !== win && column + 1 < vyskaPole) {
+        if (array[column + 1][row] === char) {
             column++;
             charCount++;
-        }
-        else {
+        } else {
             break;
         }
     }
     return charCount === win ? true : false;
 }
+
 function columnCheck(char, column, row) {
     let charCount = 1;
-    while (charCount != win) {
+    while (charCount != win && row + 1 < sirkaPole) {
         if (array[column][row + 1] === char) {
             row++;
             charCount++;
-        }
-        else {
+        } else {
             break;
         }
     }
     return charCount === win ? true : false;
 }
+
 function diagonalRight(char, column, row) {
     let charCount = 1;
-    while (charCount != win && column+1 < sirkaPole) {
+    while (charCount != win && column + 1 < vyskaPole && row - 1 >= 0) {
         if (array[column + 1][row - 1] === char) {
             column++;
             row--;
             charCount++;
-        }
-        else {
+        } else {
             break;
         }
     }
     return charCount === win ? true : false;
 }
+
 function diagonalLeft(char, column, row) {
     let charCount = 1;
-    while (charCount != win && column-1 >= 0) {
+    while (charCount != win && column - 1 >= 0 && row - 1 >= 0) {
         if (array[column - 1][row - 1] === char) {
             row--;
             column--;
             charCount++;
-        }
-        else {
+        } else {
             break;
         }
     }
     return charCount === win ? true : false;
 }
-function victoryAnnoucement() {
-
+function victoryAnnouncement() {
     switch (currentPlayer) {
         case 0:
             currentPlayer = "X";
@@ -165,5 +167,16 @@ function victoryAnnoucement() {
 
 
     }
-    alert("Výhra pro " + currentPlayer + ".")
+    alert("Výhra pro " + currentPlayer + ".");
+}
+
+function startGame(){
+    win = Number(document.querySelector("#winSlider").value);
+    sirkaPole = Number(document.querySelector("#heightSlider").value);
+    vyskaPole = Number(document.querySelector("#widthSlider").value);
+    let startElements = document.querySelectorAll(".startScreen");
+    startElements.forEach(div => div.style.display = "none");
+    board.style.display = "flex";
+    createBoard();
+    
 }
