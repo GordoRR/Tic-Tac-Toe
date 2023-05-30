@@ -174,9 +174,18 @@ function startGame(){
     win = Number(document.querySelector("#winSlider").value);
     sirkaPole = Number(document.querySelector("#heightSlider").value);
     vyskaPole = Number(document.querySelector("#widthSlider").value);
+    let maxWin = sirkaPole > vyskaPole ? vyskaPole : sirkaPole;
+    if(maxWin < win) {
+        if( confirm("Výhra má větší rozsah než je rozměr pole. Opravdu chcete pokračovat?") === false)
+        {
+            return;
+        }}
+        
+    
     let startElements = document.querySelectorAll(".startScreen");
     startElements.forEach(div => div.style.display = "none");
     board.style.display = "flex";
     createBoard();
     
-}
+    
+    }
